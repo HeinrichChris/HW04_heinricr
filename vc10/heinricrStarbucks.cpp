@@ -11,12 +11,18 @@ heinricrStarbucks::heinricrStarbucks(void)
 	ifstream in("Starbucks_2006");
 	int index = 0;
 
+	vector<Entry*> starbucks;
+	starbucks.resize(2);
+
 	while(!in.eof()){
 		Entry* e = new Entry();
 		getline(in, e->identifier, ',');
 		in>>e->x;
 		in>>e->y;
 
+		if(starbucks[starbucks.size()-1] != NULL){
+			starbucks.resize(starbucks.size()*2);
+		}
 		starbucks[index] = e;
 
 		index++;

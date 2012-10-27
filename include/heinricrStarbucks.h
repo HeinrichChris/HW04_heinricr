@@ -1,7 +1,6 @@
 #pragma once
 #include "Starbucks.h"
 #include "Node.h"
-#include <vector>
 
 class heinricrStarbucks: public Starbucks
 {
@@ -14,5 +13,5 @@ public:
 
 	int size;
 	Node* root;
-	vector<Entry*> starbucks;
+	vector<Entry> starbucks;
 };

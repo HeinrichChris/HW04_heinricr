@@ -6,7 +6,7 @@
 #include <iostream>;
 
 
-heinricrStarbucks::heinricrStarbucks(double x, double y)
+heinricrStarbucks::heinricrStarbucks(void)
 {
 	ifstream in("Starbucks_2006");
 	int index = 0;
@@ -24,19 +24,17 @@ heinricrStarbucks::heinricrStarbucks(double x, double y)
 
 	this->size = index-1;
 
-	build(&starbucks[0], size);
-	Entry* nearest = getNearest(x, y);
+	build(starbucks[0], size);
 }
 
 
 heinricrStarbucks::~heinricrStarbucks(void)
 {
-	delete starbucks;
 }
 
 void heinricrStarbucks::build(Entry* c, int n){
 	int random = rand() % n;
-	this->root = starbucks[random];
+	this->root = new Node(starbucks[random]);
 	bool isX = true;
 	bool change;
 

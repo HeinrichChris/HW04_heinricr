@@ -8,27 +8,29 @@
 
 heinricrStarbucks::heinricrStarbucks(void)
 {
-	ifstream in("Starbucks_2006");
+	ifstream in("Starbucks_2006.csv");
 	int index = 0;
 
-	vector<Entry*> starbucks;
 	starbucks.resize(2);
 
 	while(!in.eof()){
-		Entry* e = new Entry();
-		getline(in, e->identifier, ',');
-		in>>e->x;
-		in>>e->y;
-
-		if(starbucks[starbucks.size()-1] != NULL){
+		if(starbucks.size() == index){
 			starbucks.resize(starbucks.size()*2);
 		}
+
+		Entry* e = new Entry();
+		getline(in, e->identifier, ',');
+		in.get();
+		in>>e->x;
+		in.get();
+		in>>e->y;
+
 		starbucks[index] = e;
 
 		index++;
 	}
 
-	this->size = index-1;
+	this->size = index;
 
 	build(starbucks[0], size);
 }
@@ -89,9 +91,19 @@ Entry* heinricrStarbucks::getNearest(double x, double y, bool isX, Node* n){
 	}
 
 	if(isRight){
-		return getNearest(x,y,!isX, n->right);
+		if(n->right == NULL){
+			return n->c;
+		}
+		else{
+			return getNearest(x,y,!isX, n->right);
+		}
 	}
 	else{
-		return getNearest(x,y,!isX, n->left);
+		if(n->left == NULL){
+			return n->c;
+		}
+		else{
+			return getNearest(x,y,!isX, n->left);
+		}
 	}
 }

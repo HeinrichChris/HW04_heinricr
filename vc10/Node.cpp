@@ -4,6 +4,8 @@
 Node::Node(Entry* c)
 {
 	this->c = c;
+	this->left = NULL;
+	this->right = NULL;
 }
 
 

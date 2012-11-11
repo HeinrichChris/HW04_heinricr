@@ -1,6 +1,8 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
 #include "heinricrStarbucks.h";
+#include "cinder/gl/Texture.h";
+#include "cinder/ImageIo.h";
 
 using namespace ci;
 using namespace ci::app;
@@ -12,16 +14,27 @@ class HW04_heinricrApp : public AppBasic {
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
-	heinricrStarbucks starbucks; 
+	heinricrStarbucks starbucks;
+	void prepareSettings(Settings* settings);
 
+	Surface* surface;
+	gl::Texture* texture;
 };
+
+void HW04_heinricrApp::prepareSettings(Settings* settings){
+	(*settings).setWindowSize(700,550);
+	(*settings).setResizable(false);
+}
 
 void HW04_heinricrApp::setup()
 {
 	heinricrStarbucks* starbucks = new heinricrStarbucks();
 	Entry* nearest = starbucks->getNearest(0,0);
 
-	cout<<nearest->identifier<<", "<<nearest->x<<", "<<nearest->y<<endl;
+	surface = new Surface(loadImage("../map.jpg"));
+	texture = new gl::Texture(*surface);
+
+	//cout<<nearest->identifier<<", "<<nearest->x<<", "<<nearest->y<<endl;
 }
 
 void HW04_heinricrApp::mouseDown( MouseEvent event )
@@ -34,8 +47,7 @@ void HW04_heinricrApp::update()
 
 void HW04_heinricrApp::draw()
 {
-	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::draw(*texture);
 }
 
 CINDER_APP_BASIC( HW04_heinricrApp, RendererGl )

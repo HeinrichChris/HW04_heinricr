@@ -30,7 +30,7 @@ heinricrStarbucks::heinricrStarbucks(void)
 		index++;
 	}
 
-	this->size = index;
+	size = index;
 
 	build(starbucks[0], size);
 }
